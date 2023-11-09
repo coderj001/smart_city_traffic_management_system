@@ -10,5 +10,5 @@ func main() {
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, "Hello World")
 	})
-	r.Run(":8080")
+	r.Run(":8000")
 }
