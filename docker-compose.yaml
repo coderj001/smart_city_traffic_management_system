@@ -9,6 +9,8 @@ services:
     restart: on-failure
     volumes:
     - .:/app
+    ports:
+    - 8000:8080
     depends_on:
     - postgresdb
     networks:
