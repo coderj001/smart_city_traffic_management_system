@@ -19,10 +19,12 @@ services:
   postgresdb:
     image: postgres:latest
     container_name: postgres_container
-    env_file:
-     - .env
+    environment:
+      POSTGRES_USER: "traffic_user"
+      POSTGRES_PASSWORD: "Qwerty@123"
+      POSTGRES_DB: "traffic_db"
     ports:
-      - '1234:5432'
+      - '5432:5432'
     networks:
       - smt_city
     volumes:
