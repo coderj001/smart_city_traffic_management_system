@@ -1,0 +1,15 @@
+@baseURL =  http://localhost:8000/api/v1
+
+### Health API Check
+GET http://localhost:8000/health
+
+### Create Sensor Request
+POST {{baseURL}}/sensor/
+Content-Type: application/json
+
+{
+  "latitude": 40.712776,
+  "longitude": -74.005974,
+  "rate": 0.5,
+  "status": false
+}

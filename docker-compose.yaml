@@ -16,6 +16,7 @@ services:
     networks:
     - smt_city
 
+  # export PGPASSWORD=Qwerty@123;psql -h postgresdb -U traffic_user -d traffic_db
   postgresdb:
     image: postgres:latest
     container_name: postgres_container
