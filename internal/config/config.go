@@ -6,8 +6,9 @@ import (
 )
 
 type Config struct {
-	DB        *DBConfig
-	Host      string
+	DB   *DBConfig
+	Host string
+	Port string
 }
 
 type DBConfig struct {
@@ -32,6 +33,7 @@ func GetConfig() *Config {
 			Name:     os.Getenv("DB_NAME"),
 			Charset:  "utf8",
 		},
-		Host:      os.Getenv("HOST"),
+		Host: os.Getenv("HOST"),
+		Port: os.Getenv("SERVER_PORT"),
 	}
 }
