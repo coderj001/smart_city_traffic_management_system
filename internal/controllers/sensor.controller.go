@@ -23,10 +23,12 @@ func (sc *SensorController) Create(ctx *gin.Context) {
 		services.HandleError(ctx, http.StatusBadRequest, err)
 		return
 	}
+
 	newSensor := models.Sensor{
 		Latitude:  payload.Latitude,
 		Longitude: payload.Longitude,
 		Rate:      payload.Rate,
+		Status:    payload.Status,
 	}
 	if err := sc.DB.Create(&newSensor).Error; err != nil {
 		services.HandleError(ctx, http.StatusBadRequest, err)
@@ -38,4 +40,31 @@ func (sc *SensorController) Create(ctx *gin.Context) {
 			"data":    newSensor,
 		},
 	)
+}
+
+func (sc *SensorController) GetAll(ctx *gin.Context) {
+	var allSensor []models.Sensor
+
+	query := sc.DB
+
+	// if status is true, then filter all sensor with status true
+	if statusParams, exists := ctx.GetQuery("status"); exists {
+		var status bool = false
+		if statusParams == "true" {
+			status = true
+		}
+
+		// Apply filter
+		query = query.Where("status = ?", status)
+
+	}
+
+	if err := query.Find(&allSensor).Error; err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "All Traffic Sensor",
+		"data":    allSensor,
+	})
 }

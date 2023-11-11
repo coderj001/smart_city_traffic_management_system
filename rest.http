@@ -9,7 +9,12 @@ Content-Type: application/json
 
 {
   "latitude": 40.712776,
-  "longitude": -74.005974,
-  "rate": 0.5,
-  "status": false
+  "longitude": -24.005974,
+  "rate": 0.9,
+  "status": true
 }
+
+### Fetch All Sensor Request
+GET {{baseURL}}/sensor/?status=false
+
+Content-Type: application/json
