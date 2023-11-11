@@ -12,17 +12,24 @@ import (
 )
 
 var (
-	SensorController       controllers.SensorController
-	SensorRouterController routers.SensorRouterController
-	server                 *gin.Engine
+	SensorController           controllers.SensorController
+	SensorRouterController     routers.SensorRouterController
+	SensorDataController       controllers.SensorDataController
+	SensorDataRouterController routers.SensorDataRouterController
+	server                     *gin.Engine
 )
 
 func init() {
 	repository.ConnectDB()
 
 	// routes
+	// sensors
 	SensorController = *controllers.NewSensorController(repository.DB)
 	SensorRouterController = *routers.NewSensorRouterController(SensorController)
+
+	// sensor data - traffic data
+	SensorDataController = *controllers.NewSensorDataController(repository.DB)
+	SensorDataRouterController = *routers.NewSensorDataRouterController(SensorDataController)
 
 	server = gin.Default()
 }
@@ -35,6 +42,7 @@ func main() {
 
 	router := server.Group("/api/v1")
 	SensorRouterController.InitSensorRouter(router)
+	SensorDataRouterController.InitSensorDataRouter(router)
 
 	log.Fatal(server.Run(":" + config.GetConfig().Port))
 }

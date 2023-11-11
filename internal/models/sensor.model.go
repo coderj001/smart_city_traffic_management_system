@@ -12,8 +12,8 @@ type Sensor struct {
 	Longitude    float64      `gorm:"type:float;not null"  json:"longitude"`
 	Rate         float64      `gorm:"type:float;not null"  json:"rate"`                                             // date output pre sec
 	Status       bool         `gorm:"type:bool;not null;index:index_sensor_status,where:status=true" json:"status"` //TODO: need for fix check psql
-	Data         []SensorData `gorm:"foreignKey:SensorID;references:ID"`
-	IncidentData []Incident   `gorm:"foreignKey:SensorID;references:ID"`
+	// Data         []SensorData `gorm:"foreignKey:SensorID;references:ID"`
+	// IncidentData []Incident   `gorm:"foreignKey:SensorID;references:ID"`
 	CreatedAt    time.Time    `json:"created_at"`
 	UpdatedAt    time.Time    `json:"updated_at"`
 }

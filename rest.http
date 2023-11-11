@@ -22,12 +22,22 @@ GET {{baseURL}}/sensor/?status=true
 
 
 ### Fetch Sensor By Id Request
-GET {{baseURL}}/sensor/c969eec1-2aac-4b83-a65c-e23dafe20664
+GET {{baseURL}}/sensor/4461bbb6-d067-4399-8eec-0f5f3e98cc2a
 
 ### Update Sensor By Id Request
-PUT {{baseURL}}/sensor/c969eec1-2aac-4b83-a65c-e23dafe20664
+GET {{baseURL}}/sensor/388b9eac-3816-4409-bfe9-5356fb5b3814
 Content-Type: application/json
 
 {
   "status": true
+}
+
+### Traffic data
+POST {{baseURL}}/traffic/
+Content-Type: application/json
+
+{
+  "sensor_id": "4461bbb6-d067-4399-8eec-0f5f3e98cc2a",
+  "vericle_count": 5,
+  "average_speed": 10.0
 }
