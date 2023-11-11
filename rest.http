@@ -8,9 +8,9 @@ POST {{baseURL}}/sensor/
 Content-Type: application/json
 
 {
-  "latitude": 40.712776,
-  "longitude": -24.005974,
-  "rate": 0.9,
+  "latitude": 30.712776,
+  "longitude": -44.005974,
+  "rate": 1.8,
   "status": true
 }
 
@@ -41,3 +41,7 @@ Content-Type: application/json
   "vericle_count": 5,
   "average_speed": 10.0
 }
+
+### Fetch Traffic data
+GET {{baseURL}}/traffic/6
+Content-Type: application/json

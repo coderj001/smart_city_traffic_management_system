@@ -17,7 +17,7 @@ type SensorData struct {
 }
 
 type SensorDataPayload struct {
-	SensorID     uuid.UUID  `json:"sensor_id" binding:"required"`
-	VericleCount int     `json:"vericle_count,omitempty"`
-	AverageSpeed float64 `json:"average_speed,omitempty"`
+	SensorID     uuid.UUID `json:"sensor_id" binding:"required"`
+	VericleCount int       `json:"vericle_count,omitempty"`
+	AverageSpeed float64   `json:"average_speed,omitempty"`
 }

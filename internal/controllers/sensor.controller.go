@@ -56,11 +56,11 @@ func (sc *SensorController) GetAll(ctx *gin.Context) {
 
 		// Apply filter
 		query = query.Where("status = ?", status)
-
 	}
 
 	if err := query.Find(&allSensor).Error; err != nil {
 		services.HandleError(ctx, http.StatusBadRequest, err)
+    return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{

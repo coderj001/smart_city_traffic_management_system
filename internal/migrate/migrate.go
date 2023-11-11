@@ -13,6 +13,10 @@ func init() {
 
 func main() {
 	repository.DB.Exec("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\"")
-	repository.DB.AutoMigrate(&models.Sensor{}, &models.SensorData{})
+	repository.DB.AutoMigrate(
+    &models.Sensor{},
+    &models.SensorData{},
+    &models.Incident{},
+  )
 	fmt.Println("👍 Migration complete")
 }
