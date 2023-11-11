@@ -45,3 +45,26 @@ Content-Type: application/json
 ### Fetch Traffic data
 GET {{baseURL}}/traffic/6
 Content-Type: application/json
+
+### Create Incident
+POST {{baseURL}}/incidents
+Content-Type: application/json
+
+{
+  "sensor_id": "4461bbb6-d067-4399-8eec-0f5f3e98cc2a",
+  "type": "accident",
+  "status": "ongoing",
+  "Description": "accident at 10.0km/h"
+}
+
+### Get All Incident
+GET {{baseURL}}/incidents/?status=ongoing
+Content-Type: application/json
+
+### Update Incident
+PUT {{baseURL}}/incident/1
+Content-Type: application/json
+
+{
+  "status": "resolved"
+}

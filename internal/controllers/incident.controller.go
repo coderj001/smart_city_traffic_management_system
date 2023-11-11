@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"net/http"
-	"time"
 
 	"github.com/coderj001/smart_city_traffic_management_system/internal/models"
 	"github.com/coderj001/smart_city_traffic_management_system/internal/services"
@@ -28,9 +27,9 @@ func (i *IncidentController) GetIncident(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
-    "message": "Get incident",
-    "data": incident,
-  })
+		"message": "Get incident",
+		"data":    incident,
+	})
 }
 
 func (i *IncidentController) GetIncidents(ctx *gin.Context) {
@@ -68,7 +67,6 @@ func (i *IncidentController) CreateIncident(ctx *gin.Context) {
 		Type:        payload.Type,
 		Description: payload.Description,
 		Status:      payload.Status,
-		TimeStamp:   time.Now(),
 	}
 
 	if err := i.DB.Create(&newIncident).Error; err != nil {
@@ -78,4 +76,33 @@ func (i *IncidentController) CreateIncident(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, gin.H{"message": "Incident is reported successfully!"})
 }
 
-func (i *IncidentController) UpdateIncident(ctx *gin.Context) {}
+func (i *IncidentController) UpdateIncident(ctx *gin.Context) {
+	incidentID := ctx.Param("id")
+	var incident models.Incident
+	var newIncident models.IncidentDataUpdate
+
+	if err := ctx.ShouldBindJSON(&newIncident); err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+		return
+	}
+
+	if err := i.DB.Where("id = ?", incidentID).First(&incident).Error; err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+		return
+	}
+
+	updatedIncident := models.Incident{
+		Type:        newIncident.Type,
+		Description: newIncident.Description,
+		Status:      newIncident.Status,
+	}
+
+	if err := i.DB.Model(&incident).Updates(updatedIncident).Error; err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Incident is updated successfully!",
+		"data":    updatedIncident,
+	})
+}

@@ -60,7 +60,7 @@ func (sc *SensorController) GetAll(ctx *gin.Context) {
 
 	if err := query.Find(&allSensor).Error; err != nil {
 		services.HandleError(ctx, http.StatusBadRequest, err)
-    return
+		return
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
@@ -90,10 +90,12 @@ func (sc *SensorController) UpdateByID(ctx *gin.Context) {
 
 	if err := ctx.ShouldBindJSON(&newSensor); err != nil {
 		services.HandleError(ctx, http.StatusBadRequest, err)
+		return
 	}
 
 	if err := sc.DB.First(&sensor, "id = ?", sensorID).Error; err != nil {
 		services.HandleError(ctx, http.StatusNotFound, err)
+		return
 	}
 
 	updateSensor := models.Sensor{
@@ -105,14 +107,15 @@ func (sc *SensorController) UpdateByID(ctx *gin.Context) {
 
 	if err := sc.DB.Model(&sensor).Updates(updateSensor).Error; err != nil {
 		services.HandleError(ctx, http.StatusBadRequest, err)
+		return
 	}
 
 	ctx.JSON(
-    http.StatusOK,
-    gin.H{
-      "message": "Sensor Updated Successfully",
-      "data":    sensor,
-    },
-  )
+		http.StatusOK,
+		gin.H{
+			"message": "Sensor Updated Successfully",
+			"data":    sensor,
+		},
+	)
 
 }

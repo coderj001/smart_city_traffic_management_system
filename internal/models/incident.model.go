@@ -13,7 +13,8 @@ type Incident struct {
 	Type        string    `gorm:"not null"` // accidents, roadblocks
 	Description string    `gorm:"varchar(255)"`
 	Status      string    `gorm:"not null"` // resolved, ongoing
-	TimeStamp   time.Time
+  CreatedAt   time.Time
+  UpdatedAt   time.Time
 }
 
 type IncidentDataPayload struct {
@@ -21,4 +22,10 @@ type IncidentDataPayload struct {
 	Type        string    `json:"type" binding:"required"`
 	Description string    `json:"description,omitempty"`
 	Status      string    `json:"status" binding:"required"`
+}
+
+type IncidentDataUpdate struct {
+	Type        string `json:"type,omitempty"`
+	Description string `json:"description,omitempty"`
+	Status      string `json:"status,omitempty"`
 }
