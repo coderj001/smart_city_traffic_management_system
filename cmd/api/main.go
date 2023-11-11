@@ -4,11 +4,12 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
+
 	"github.com/coderj001/smart_city_traffic_management_system/internal/config"
 	"github.com/coderj001/smart_city_traffic_management_system/internal/controllers"
 	"github.com/coderj001/smart_city_traffic_management_system/internal/repository"
 	"github.com/coderj001/smart_city_traffic_management_system/internal/routers"
-	"github.com/gin-gonic/gin"
 )
 
 var (

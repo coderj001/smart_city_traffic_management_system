@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
   "sensor_id": "4461bbb6-d067-4399-8eec-0f5f3e98cc2a",
-  "vericle_count": 5,
+  "vehicle_count": 5,
   "average_speed": 10.0
 }
 
