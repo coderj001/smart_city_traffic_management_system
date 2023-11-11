@@ -4,10 +4,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/coderj001/smart_city_traffic_management_system/internal/models"
-	"github.com/coderj001/smart_city_traffic_management_system/internal/services"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+
+	"github.com/coderj001/smart_city_traffic_management_system/internal/models"
+	"github.com/coderj001/smart_city_traffic_management_system/internal/services"
 )
 
 // This will consider as traffic data
@@ -36,23 +37,23 @@ func (c *SensorDataController) GetSensorData(ctx *gin.Context) {
 }
 
 func (c *SensorDataController) PostSensorData(ctx *gin.Context) {
-  var payload models.SensorDataPayload
-  if err := ctx.ShouldBindJSON(&payload); err != nil {
-    services.HandleError(ctx, http.StatusBadRequest, err)
-    return
-  }
+	var payload models.SensorDataPayload
+	if err := ctx.ShouldBindJSON(&payload); err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+		return
+	}
 
-  newSensorData := models.SensorData{
-    SensorID: payload.SensorID,
-    VericleCount: payload.VericleCount,
-    AverageSpeed: payload.AverageSpeed,
-    TimeStamp: time.Now(),
-  }
+	newSensorData := models.SensorData{
+		SensorID:     payload.SensorID,
+		VehicleCount: payload.VehicleCount,
+		AverageSpeed: payload.AverageSpeed,
+		TimeStamp:    time.Now(),
+	}
 
-  if err := c.DB.Create(&newSensorData).Error; err != nil {
-    services.HandleError(ctx, http.StatusBadRequest, err)
-    return
-  }
+	if err := c.DB.Create(&newSensorData).Error; err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+		return
+	}
 
 	ctx.JSON(http.StatusCreated,
 		gin.H{"message": "Sensor data posted successfully"},

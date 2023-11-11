@@ -4,9 +4,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/coderj001/smart_city_traffic_management_system/internal/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
+	"github.com/coderj001/smart_city_traffic_management_system/internal/config"
 )
 
 var DB *gorm.DB
