@@ -15,6 +15,8 @@ func NewSensorRouterController(sensorController controllers.SensorController) *S
 
 func (s *SensorRouterController) InitSensorRouter(rg *gin.RouterGroup) {
 	router := rg.Group("sensor")
+	router.GET("/", s.sensorController.GetAll)
 	router.POST("/", s.sensorController.Create)
-  router.GET("/", s.sensorController.GetAll)
+	router.GET("/:id", s.sensorController.GetByID)
+	router.PUT("/:id", s.sensorController.UpdateByID)
 }

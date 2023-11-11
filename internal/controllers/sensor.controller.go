@@ -68,3 +68,51 @@ func (sc *SensorController) GetAll(ctx *gin.Context) {
 		"data":    allSensor,
 	})
 }
+
+func (sc *SensorController) GetByID(ctx *gin.Context) {
+	sensorID := ctx.Param("id")
+	var sensor models.Sensor
+
+	if err := sc.DB.First(&sensor, "id = ?", sensorID).Error; err != nil {
+		services.HandleError(ctx, http.StatusNotFound, err)
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "Sensor",
+		"data":    sensor,
+	})
+}
+
+func (sc *SensorController) UpdateByID(ctx *gin.Context) {
+	sensorID := ctx.Param("id")
+	var sensor models.Sensor
+	var newSensor models.UpdateSensorRequest
+
+	if err := ctx.ShouldBindJSON(&newSensor); err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+	}
+
+	if err := sc.DB.First(&sensor, "id = ?", sensorID).Error; err != nil {
+		services.HandleError(ctx, http.StatusNotFound, err)
+	}
+
+	updateSensor := models.Sensor{
+		Latitude:  newSensor.Latitude,
+		Longitude: newSensor.Longitude,
+		Rate:      newSensor.Rate,
+		Status:    newSensor.Status,
+	}
+
+	if err := sc.DB.Model(&sensor).Updates(updateSensor).Error; err != nil {
+		services.HandleError(ctx, http.StatusBadRequest, err)
+	}
+
+	ctx.JSON(
+    http.StatusOK,
+    gin.H{
+      "message": "Sensor Updated Successfully",
+      "data":    sensor,
+    },
+  )
+
+}
