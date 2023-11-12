@@ -22,7 +22,7 @@ Develop a backend API for a simulated Smart City Traffic Management System. This
    - Cache should be configurable and refresh at a regular interval.
 
 5. **Docker Integration**:
-   - Create Dockerfiles and a Docker Compose setup to containerize the Go application, PostgreSQL, and Redis.
+   - Create Dockerfile and a Docker Compose setup to containerize the Go application, PostgreSQL, and Redis.
    - Ensure the system can be easily started with minimal setup commands.
 
 6. **API Documentation and Testing**:
