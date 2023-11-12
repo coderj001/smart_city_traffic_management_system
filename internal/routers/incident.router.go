@@ -1,8 +1,9 @@
 package routers
 
 import (
-	"github.com/coderj001/smart_city_traffic_management_system/internal/controllers"
 	"github.com/gin-gonic/gin"
+
+	"github.com/coderj001/smart_city_traffic_management_system/internal/controllers"
 )
 
 type IncidentRouterController struct {
@@ -14,10 +15,10 @@ func NewIncidentRouterController(incidentController controllers.IncidentControll
 }
 
 func (i *IncidentRouterController) InitIncidentRouter(rg *gin.RouterGroup) {
-	router := rg.Group("incidents")
-	router.GET("/", i.incidentController.GetIncidents)
-  router.POST("/", i.incidentController.CreateIncident)
-  router2 := rg.Group("incident")
-  router2.GET("/:id", i.incidentController.GetIncident)
-  router2.PUT("/:id", i.incidentController.UpdateIncident)
+	r1 := rg.Group("incidents")
+	r1.GET("/", i.incidentController.GetIncidents)
+	r1.POST("/", i.incidentController.CreateIncident)
+	r2 := rg.Group("incident")
+	r2.GET("/:id", i.incidentController.GetIncident)
+	r2.PUT("/:id", i.incidentController.UpdateIncident)
 }
