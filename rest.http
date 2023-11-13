@@ -37,9 +37,9 @@ POST {{baseURL}}/traffic/
 Content-Type: application/json
 
 {
-  "sensor_id": "4461bbb6-d067-4399-8eec-0f5f3e98cc2a",
-  "vehicle_count": 5,
-  "average_speed": 10.0
+  "sensor_id": "fe118d01-58d3-41cf-9ff9-497a1953dd53",
+  "vehicle_count": 13,
+  "average_speed": 28.0
 }
 
 ### Fetch Traffic data

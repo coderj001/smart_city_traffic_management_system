@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// Sensor Table
 type Sensor struct {
 	ID           uuid.UUID    `gorm:"primary_key;type:uuid;default:uuid_generate_v4()" json:"id"`
 	Latitude     float64      `gorm:"type:float;not null" json:"latitude"`

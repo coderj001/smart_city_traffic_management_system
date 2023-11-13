@@ -42,20 +42,23 @@ func (c *SensorDataController) PostSensorData(ctx *gin.Context) {
 		services.HandleError(ctx, http.StatusBadRequest, err)
 		return
 	}
-
-	newSensorData := models.SensorData{
-		SensorID:     payload.SensorID,
-		VehicleCount: payload.VehicleCount,
-		AverageSpeed: payload.AverageSpeed,
-		TimeStamp:    time.Now(),
-	}
-
-	if err := c.DB.Create(&newSensorData).Error; err != nil {
-		services.HandleError(ctx, http.StatusBadRequest, err)
-		return
-	}
+	go processSensorData(payload, c.DB)
 
 	ctx.JSON(http.StatusCreated,
 		gin.H{"message": "Sensor data posted successfully"},
 	)
+}
+
+func processSensorData(data models.SensorDataPayload, db *gorm.DB) {
+
+	newSensorData := models.SensorData{
+		SensorID:     data.SensorID,
+		VehicleCount: data.VehicleCount,
+		AverageSpeed: data.AverageSpeed,
+		TimeStamp:    time.Now(),
+	}
+
+	if err := db.Create(&newSensorData).Error; err != nil {
+		panic(err)
+	}
 }

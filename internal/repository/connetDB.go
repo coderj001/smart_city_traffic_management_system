@@ -12,17 +12,18 @@ import (
 
 var DB *gorm.DB
 
+// Initialize connects to the DB
 func ConnectDB() {
 	var err error
-	dbConfig := config.GetConfig()
+	dbConfig := config.GetConfig().DB
 
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Kolkata",
-		dbConfig.DB.Host,
-		dbConfig.DB.Username,
-		dbConfig.DB.Password,
-		dbConfig.DB.Name,
-		dbConfig.DB.Port,
+		dbConfig.Host,
+		dbConfig.Username,
+		dbConfig.Password,
+		dbConfig.Name,
+		dbConfig.Port,
 	)
 
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})

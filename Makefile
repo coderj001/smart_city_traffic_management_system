@@ -44,4 +44,8 @@ dev:
 shell:
 	$(DOCKER_COMPOSE) exec web /bin/sh
 
-.PHONY: all build up down test clean logs dev shell
+# run migrations
+migrate:
+	$(DOCKER_COMPOSE) exec web go run ./internal/migrate/migrate.go
+
+.PHONY: all build up down test clean logs dev shell migrate

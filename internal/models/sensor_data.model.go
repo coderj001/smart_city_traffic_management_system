@@ -13,7 +13,7 @@ type SensorData struct {
 	Sensor       Sensor    `gorm:"foreignKey:SensorID;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	VehicleCount int
 	AverageSpeed float64
-	TimeStamp    time.Time
+	TimeStamp    time.Time `gorm:"autoCreateTime;autoUpdateTime"`
 }
 
 type SensorDataPayload struct {

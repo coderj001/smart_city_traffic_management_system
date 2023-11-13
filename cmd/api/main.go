@@ -24,6 +24,7 @@ var (
 
 func init() {
 	repository.ConnectDB()
+  repository.ConnectRedis()
 
 	// routes
 	// sensors
