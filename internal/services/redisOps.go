@@ -40,3 +40,23 @@ func Exists(key string) bool {
 
 	return exists
 }
+
+// Get a value by key
+func Get(key string) ([]byte, error) {
+	conn := repository.RedisConn.Get()
+	defer conn.Close()
+
+	reply, err := redis.Bytes(conn.Do("GET", key))
+	if err != nil {
+		return nil, err
+	}
+	return reply, nil
+}
+
+// Delete a value by key
+func Delete(key string) (bool, error) {
+	conn := repository.RedisConn.Get()
+	defer conn.Close()
+
+	return redis.Bool(conn.Do("DEL", key))
+}
